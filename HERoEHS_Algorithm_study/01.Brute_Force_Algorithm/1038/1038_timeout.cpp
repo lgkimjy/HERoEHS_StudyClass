@@ -14,23 +14,28 @@ int main()
     count = 0;
     flag = 0;
 
-    for(int i=0; count != N ;i++){
-        a = to_string(i);
-        if(i>0 && i<10){
-            count++;
-            stack.push_back(a);
-        }
-        else{
-            for(int j=0; j<(a.size()-1); j++){
-                if((a[j] - a[j+1])>0)
-                    flag++;
-                if(flag == (a.size()-1)){
-                    count++;
-                    stack.push_back(a);
-                }
+    if(N<1023){
+        for(int i=0; count != N ;i++){
+            a = to_string(i);
+            if(i>0 && i<10){
+                count++;
+                stack.push_back(a);
             }
-            flag = 0;
+            else{
+                for(int j=0; j<(a.size()-1); j++){
+                    if((a[j] - a[j+1])>0)
+                        flag++;
+                    if(flag == (a.size()-1)){
+                        count++;
+                        stack.push_back(a);
+                    }
+                }
+                flag = 0;
+            }
         }
+    }
+    else{
+        a = "-1";
     }
 
     // for(auto c : stack){
