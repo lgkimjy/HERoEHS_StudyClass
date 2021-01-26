@@ -21,15 +21,12 @@ int main(){
     min_count = 0;
 
     for(int i=0; K!=0 || i<coin_box.size(); i++){
-        // cout << i << endl;
         if(coin_box[i] <= K){
-            // cout << K << " ";
             div = K / coin_box[i];
             min_count += div;
             K = K - (div * coin_box[i]);
         }
     }
-    // cout << endl;
 
     cout << min_count << endl;
 	
