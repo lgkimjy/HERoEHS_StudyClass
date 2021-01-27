@@ -9,13 +9,12 @@ int main(){
     int N, road_length, fuel_price, lowest_fuel;
     vector<int> roads;
     vector<int> fuels;
-    int payment, cumualte_roads, flag, tmp, k;
+    int payment, cumualte_roads, flag;
 
 
     // initialize
     payment = 0;
     lowest_fuel = 0;
-    tmp = 0;
     cumualte_roads = 0;
 
     // input 
@@ -31,30 +30,30 @@ int main(){
 
     // algorithm / logic
     lowest_fuel = find_the_lowest_fuel_price(fuels);
-    // cout << "lowest_fuel price : " << lowest_fuel << endl;
+    cout << "lowest_fuel : " << lowest_fuel << endl;
 
-    for(int i=0; i<N-1; i++){
-        if(fuels[i] == lowest_fuel){
-            for(int j=i; j<(N-1); j++){
-                cumualte_roads+=roads[j];
+    for(int i=0; i<N; i++){
+        cout << "i : " << i << endl;
+        cumualte_roads = roads[i];
+        for(int j=i+1; j<N; j++){
+            if(fuels[i] > fuels[j]){
+                payment += (fuels[i]*cumualte_roads);
+                cout << payment << " ";
+                i=j;
+                break;
             }
-            // cout << cumualte_roads << endl;
-            payment = payment + (cumualte_roads * fuels[i]);
-            break;
-        }
-        if(fuels[i] > fuels[i+1]){
-            payment = payment + (fuels[i] * roads[i]);
-        }
-        else if(fuels[i] <= fuels[i+1]){
-            for(k=i; k<N; k++){
-                if(fuels[i] <= fuels[k]){
-                    cumualte_roads+=roads[k];
+            else if(fuels[i] == lowest_fuel){
+                for(int k=i+1; i<N-1;k++){
+                    cumualte_roads += roads[k];
                 }
+                cout << "cumulate_roads : " << cumualte_roads << endl;
+                payment += cumualte_roads * fuels[i];
+                i=N;
             }
-            cout << "k : " << k << endl;
-            payment = payment + (fuels[i] * cumualte_roads);
-            cumualte_roads = 0;
-            i=k-3;
+            else if(fuels[i] <= fuels[j]){
+                cumualte_roads += roads[j];
+                cout << "cumulate_roads : " << cumualte_roads << endl;
+            }
         }
     }
 
@@ -77,9 +76,3 @@ int find_the_lowest_fuel_price(vector<int> fuel){
 
     return index;
 }
-
-/*
-5
-2 2 2 2
-2 4 1 3 5
-*/
