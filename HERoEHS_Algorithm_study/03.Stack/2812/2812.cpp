@@ -1,51 +1,44 @@
 #include <iostream>
 #include <string>
 #include <stack>
+#include <vector>
 using namespace std;
 
 int main(){
 
-    int K, N, coord, largest;
+    int K, N, coord_1, coord_2;
+    char largest;
     string number;
-    int num;
-    char ascii;
-    stack<char> box;
+    vector<char> ans;
+    stack<char> data;
 
     cin >> N >> K;
     cin >> number;
-    largest = 0;
-    ascii = '0';
-
-    for(int i=N-K-1; i>-1; i--){
-        num = number[i] - ascii;
-        if(largest < num){
-            largest = num;
-            coord = i;
-        }
-    }
-
-    cout << largest << " " << coord << endl;
     
-    for(int i=coord; box.size()<=(N-K); i++){
-        cout << number[i] << " ";
-        if(box.size() == 0){
-            box.push(number[i]);
-            continue;
-        }
+    coord_1 = 1;
+    largest = '0';
+    coord_2 = N-K;
 
-        if(box.top() >= number[i]){
-            box.push(number[i]);
+    for(;(N-K)!=ans.size();){
+        for(int j=coord_1; j<number.size(); j++){
+            cout << coord_1 << " " << coord_2 << " ";
+            if(number[j] > largest && j < coord_2){
+                data.push(number[j]);
+                largest = data.top();
+                if(j==0) coord_1 = 1;
+                else coord_1 = j+1;
+            }
+            cout << largest << endl;
         }
-        else if(box.top() < number[i]){
-            box.pop();
-            box.push(number[i]);
-        }
+        ans.push_back(data.top());
+        largest = 0;
+        coord_2 ++;
+        cout << "---- ---" << endl;
     }
-    cout << box.size() << endl;
-    while(!box.empty()){
-        cout << box.top() << endl;
-        box.pop();
-    }
+
+    for(auto a : ans){
+        cout << a << " ";
+    }cout << endl;
 
     return 0;
 }
