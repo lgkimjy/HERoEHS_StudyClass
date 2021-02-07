@@ -7,7 +7,7 @@ int main(){
 
     int N, K, count;
     queue<int> data;
-    vector<int> ans;
+    vector<int> ans(0);
 
     cin >> N >> K;
     count = 1;
@@ -17,13 +17,19 @@ int main(){
     }
 
     for(; data.size()!=1;){
-        data.push(data.front());
-        data.pop();
-        count ++;
-        if(count == K){
+        if(K==1){
             ans.push_back(data.front());
             data.pop();
-            count = 1;
+        }
+        else{
+            data.push(data.front());
+            data.pop();
+            count ++;
+            if(count == K){
+                ans.push_back(data.front());
+                data.pop();
+                count = 1;
+            }
         }
     }
     ans.push_back(data.front());
