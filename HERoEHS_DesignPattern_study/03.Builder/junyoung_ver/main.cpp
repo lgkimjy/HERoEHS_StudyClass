@@ -50,9 +50,6 @@ class ConcreateBuilder1 : public HouseBuilder
         void build_Wall() const {}
 };
 
-
-HouseBuilder* a = new ConcreateBuilder1();
-
 class Director
 {
     private :
